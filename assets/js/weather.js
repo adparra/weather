@@ -59,9 +59,46 @@ let loadWeekForecastData = (ciudad) => {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     loadDayForecastData(ciudad1);
-    let element = document.getElementById("loadinfo");
-
-    element.addEventListener('click', (event) => {
-        loadWeekForecastData(ciudad1);
+    weekCity(ciudad1);
+    let elemento= document.getElementById("dropdownMenuButton")
+    elemento.addEventListener('change',(event) => {
+        let selectedValue = event.target.value;
+        switch(selectedValue){
+            case 'guayaquil':
+                loadDayForecastData(ciudad1);
+                flushWeekly();
+                weekCity(ciudad1);
+                break;
+            case 'ambato':
+                loadDayForecastData(ciudad2);
+                flushWeekly();
+                weekCity(ciudad2);
+                break;
+            case 'tena':
+                loadDayForecastData(ciudad3);
+                flushWeekly();
+                weekCity(ciudad3);
+                break;
+        }
     });
 });
+
+function weekCity(ciudad){
+    let element = document.getElementById("loadinfo");
+    element.addEventListener('click', (event) => {
+        loadWeekForecastData(ciudad);
+    });
+}
+
+function flushWeekly(){
+    let listOfElements = document.getElementsByClassName('list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg');
+    let[first,second,third,fourth,fifth,sixth,seventh]=listOfElements;
+    first.innerHTML= '';
+    second.innerHTML= '';
+    third.innerHTML= '';
+    fourth.innerHTML= '';
+    fifth.innerHTML= '';
+    sixth.innerHTML= '';
+    seventh.innerHTML= '';
+}
+
